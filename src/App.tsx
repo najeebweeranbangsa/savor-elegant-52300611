@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 
 const MenuPage = lazy(() => import("./pages/MenuPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const EventsPage = lazy(() => import("./pages/EventsPage"));
 const CateringPage = lazy(() => import("./pages/CateringPage"));
 const CareersPage = lazy(() => import("./pages/CareersPage"));
@@ -54,6 +55,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/menu" element={<MenuPage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:id" element={<BlogPostPage />} />
               <Route path="/events" element={<EventsPage />} />
               <Route path="/catering" element={<CateringPage />} />
               <Route path="/careers" element={<CareersPage />} />
