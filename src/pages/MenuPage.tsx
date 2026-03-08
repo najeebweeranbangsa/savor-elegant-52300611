@@ -97,6 +97,20 @@ const MenuPage = () => {
               {filteredItems.length === 0 && <p className="text-muted-foreground">No items in this category yet.</p>}
             </div>
           </motion.div>
+
+          {/* Allergy Warning */}
+          <div className="max-w-3xl mx-auto mt-14 p-6 rounded-lg border border-primary/30 bg-primary/5">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle size={20} className="text-primary" />
+              <h3 className="font-display text-lg font-bold uppercase text-primary">Allergy Warning</h3>
+            </div>
+            <p className="text-foreground/90 text-sm leading-relaxed mb-3">
+              <strong>Food Allergy Notice:</strong> Our kitchen prepares menu items that may contain or come into contact with the 9 major food allergens: Milk, Eggs, Fish, Shellfish, Tree Nuts, Peanuts, Wheat, Soy, and Sesame.
+            </p>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              If you have a food allergy, please notify your server before ordering so we can assist you in selecting the safest dining options.
+            </p>
+          </div>
         </div>
       </section>
     </Layout>
