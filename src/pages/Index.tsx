@@ -240,7 +240,7 @@ const Index = () => {
             transition={{ duration: 0.6 }}
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3317.5!2d-84.3!3d33.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9d1a5e6f8b4c226e!2s404%20Sports%20Bar%20%26%20Grill!5e0!3m2!1sen!2sus!4v1700000000000"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.8!2d-84.36!3d33.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f4f93f47bbf17b%3A0x9d1969ce837b426e!2s404%20Sports%20Bar!5e0!3m2!1sen!2sus!4v1700000000000"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -252,7 +252,7 @@ const Index = () => {
           </motion.div>
           <div className="text-center mt-6">
             <a
-              href="https://www.google.com/maps?cid=11320195474062525038"
+              href="https://www.google.com/maps/place/404+sports+bar/data=!4m2!3m1!1s0x88f4f93f47bbf17b:0x9d1969ce837b426e"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:underline"
