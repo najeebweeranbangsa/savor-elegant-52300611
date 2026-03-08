@@ -15,7 +15,7 @@ const BlogPostPage = () => {
 
   useEffect(() => {
     if (!slug) return;
-    supabase.from("blog_posts").select("*").eq("slug" as any, slug).eq("published", true).single().then(({ data }) => {
+    (supabase.from("blog_posts").select("*") as any).eq("slug", slug).eq("published", true).single().then(({ data }: any) => {
       setPost(data);
       setLoading(false);
     });
