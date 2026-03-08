@@ -229,20 +229,78 @@ const Index = () => {
       </section>
 
       {/* Map */}
-      <section className="section-padding bg-secondary">
-        <div className="container mx-auto max-w-5xl">
+      <section className="section-padding bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background pointer-events-none" />
+        <div className="relative z-10 container mx-auto max-w-6xl">
           <SectionHeading title="Find Us" subtitle="Located in the heart of Atlanta on Glenwood Avenue" />
-          <div className="rounded-lg overflow-hidden border border-border aspect-video">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3317.5!2d-84.3!3d33.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9d1a5e6f8b4c226e!2s404%20Sports%20Bar%20%26%20Grill!5e0!3m2!1sen!2sus!4v1700000000000"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="404 Sports Bar & Grill location"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            {/* Info Cards */}
+            <div className="flex flex-col gap-4">
+              <motion.div
+                className="bg-card p-6 rounded-lg border border-border hover:border-primary/40 transition-colors"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <h3 className="font-display text-lg font-semibold mb-2 text-primary">Address</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  6065 Old National Hwy<br />
+                  College Park, GA 30349
+                </p>
+              </motion.div>
+              <motion.div
+                className="bg-card p-6 rounded-lg border border-border hover:border-primary/40 transition-colors"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+              >
+                <h3 className="font-display text-lg font-semibold mb-2 text-primary">Hours</h3>
+                <div className="text-muted-foreground text-sm space-y-1">
+                  <p>Mon - Thu: 4PM - 12AM</p>
+                  <p>Fri - Sat: 12PM - 2AM</p>
+                  <p>Sun: 12PM - 10PM</p>
+                </div>
+              </motion.div>
+              <motion.div
+                className="bg-card p-6 rounded-lg border border-border hover:border-primary/40 transition-colors"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+              >
+                <h3 className="font-display text-lg font-semibold mb-2 text-primary">Contact</h3>
+                <p className="text-muted-foreground text-sm">(404) 600-0547</p>
+                <a
+                  href="https://www.google.com/maps?cid=11320195474062525038"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-primary text-sm font-semibold mt-2 hover:underline"
+                >
+                  Get Directions <ArrowRight size={14} />
+                </a>
+              </motion.div>
+            </div>
+            {/* Map */}
+            <motion.div
+              className="md:col-span-2 rounded-lg overflow-hidden border border-border shadow-lg shadow-primary/5 aspect-video"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3317.5!2d-84.3!3d33.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9d1a5e6f8b4c226e!2s404%20Sports%20Bar%20%26%20Grill!5e0!3m2!1sen!2sus!4v1700000000000"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="404 Sports Bar & Grill location"
+              />
+            </motion.div>
           </div>
         </div>
       </section>
