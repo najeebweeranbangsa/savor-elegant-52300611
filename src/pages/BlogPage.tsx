@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
