@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { lovable } from "@/integrations/lovable/index";
 import logo from "@/assets/logo.webp";
 
 const AdminLoginPage = () => {
