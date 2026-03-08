@@ -6,18 +6,36 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const ReservationPage = () => {
   const [loading, setLoading] = useState(false);
+  const [guests, setGuests] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+
+    const { error } = await supabase.from("reservations").insert({
+      full_name: data.get("full_name") as string,
+      phone: data.get("phone") as string,
+      email: data.get("email") as string,
+      reservation_date: data.get("date") as string,
+      reservation_time: data.get("time") as string,
+      guests: parseInt(guests) || 1,
+      notes: (data.get("notes") as string) || null,
+    });
+
+    setLoading(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+    } else {
       toast.success("Reservation request submitted! We'll confirm shortly.");
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+      setGuests("");
+    }
   };
 
   return (
@@ -27,14 +45,14 @@ const ReservationPage = () => {
           <SectionHeading title="Reserve a Table" subtitle="Book your spot at 404 Sports Bar & Grill" />
           <div className="bg-card p-6 md:p-8 rounded-lg border border-border">
             <form onSubmit={handleSubmit} className="space-y-4">
-              <Input placeholder="Full Name" required />
-              <Input type="tel" placeholder="Phone Number" required />
-              <Input type="email" placeholder="Email Address" required />
+              <Input name="full_name" placeholder="Full Name" required />
+              <Input name="phone" type="tel" placeholder="Phone Number" required />
+              <Input name="email" type="email" placeholder="Email Address" required />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input type="date" required />
-                <Input type="time" required />
+                <Input name="date" type="date" required />
+                <Input name="time" type="time" required />
               </div>
-              <Select required>
+              <Select value={guests} onValueChange={setGuests} required>
                 <SelectTrigger>
                   <SelectValue placeholder="Number of Guests" />
                 </SelectTrigger>
@@ -44,10 +62,10 @@ const ReservationPage = () => {
                       {n} {n === 1 ? "Guest" : "Guests"}
                     </SelectItem>
                   ))}
-                  <SelectItem value="10+">10+ Guests</SelectItem>
+                  <SelectItem value="10">10+ Guests</SelectItem>
                 </SelectContent>
               </Select>
-              <Textarea placeholder="Special requests or notes..." rows={3} />
+              <Textarea name="notes" placeholder="Special requests or notes..." rows={3} />
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Submitting..." : "Request Reservation"}
               </Button>
