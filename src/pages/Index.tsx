@@ -23,8 +23,8 @@ const fadeUp = {
 const featuredDishes = [
   { name: "Loaded Burger", desc: "Double patty with bacon, cheddar, onion rings & our signature sauce", price: "$17.99", image: dishBurger },
   { name: "Crispy Wings", desc: "Tossed in your choice of 404 signature sauces", price: "$12.99", image: dishWings },
-  { name: "Seafood Platter", desc: "Grilled shrimp, crab cakes & lemon butter", price: "$24.99", image: dishSeafood },
-  { name: "Tropical Punch", desc: "Our famous house cocktail with fresh fruit blend", price: "$11.99", image: dishCocktail },
+  { name: "Crab Claws", desc: "Crispy fried crab claws with signature seasoning", price: "$16.99", image: dishSeafood },
+  { name: "Funnel Fries", desc: "Crispy funnel cake fries dusted with powdered sugar", price: "$8.99", image: dishCocktail },
 ];
 
 const testimonials = [
