@@ -17,22 +17,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [initializing, setInitializing] = useState(true);
-  const [roleResolved, setRoleResolved] = useState(false);
+  const [checkingRole, setCheckingRole] = useState(false);
 
   useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession);
-      setRoleResolved(!nextSession?.user);
+      if (!nextSession?.user) {
+        setIsAdmin(false);
+        setCheckingRole(false);
+      }
       setInitializing(false);
     });
 
     supabase.auth
       .getSession()
-      .then(({ data: { session } }) => {
-        setSession(session);
-        setRoleResolved(!session?.user);
+      .then(({ data: { session: currentSession } }) => {
+        setSession(currentSession);
+        if (!currentSession?.user) {
+          setIsAdmin(false);
+          setCheckingRole(false);
+        }
       })
       .finally(() => {
         setInitializing(false);
@@ -44,8 +50,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     let cancelled = false;
 
+    if (!session?.user?.id) {
+      setIsAdmin(false);
+      setCheckingRole(false);
+      return;
+    }
+
     const resolveAdminRole = async (userId: string) => {
-      setRoleResolved(false);
+      setCheckingRole(true);
+
+      const timeoutId = window.setTimeout(() => {
+        if (!cancelled) {
+          setIsAdmin(false);
+          setCheckingRole(false);
+        }
+      }, 8000);
+
       try {
         const { data, error } = await supabase.rpc("has_role", {
           _user_id: userId,
@@ -57,15 +77,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } catch {
         if (!cancelled) setIsAdmin(false);
       } finally {
-        if (!cancelled) setRoleResolved(true);
+        window.clearTimeout(timeoutId);
+        if (!cancelled) setCheckingRole(false);
       }
     };
-
-    if (!session?.user?.id) {
-      setIsAdmin(false);
-      setRoleResolved(true);
-      return;
-    }
 
     resolveAdminRole(session.user.id);
 
@@ -82,12 +97,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = async () => {
     await supabase.auth.signOut();
     setIsAdmin(false);
-    setRoleResolved(true);
+    setCheckingRole(false);
   };
 
   const loading = useMemo(
-    () => initializing || (!!session?.user && !roleResolved),
-    [initializing, roleResolved, session?.user],
+    () => initializing || (!!session?.user && checkingRole),
+    [initializing, checkingRole, session?.user],
   );
 
   return (
