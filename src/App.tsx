@@ -26,7 +26,7 @@ const AdminReservationsPage = lazy(() => import("./pages/admin/AdminReservations
 
 const queryClient = new QueryClient();
 
-const Loading = () => (
+const loadingFallback = (
   <div className="min-h-screen flex items-center justify-center bg-background">
     <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
   </div>
@@ -34,9 +34,9 @@ const Loading = () => (
 
 const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAdmin, loading, session } = useAuth();
-  if (loading) return <Loading />;
+  if (loading) return loadingFallback;
   if (!session) return <Navigate to="/admin/login" replace />;
-  if (!isAdmin) return <Navigate to="/" replace />;
+  if (!isAdmin) return <Navigate to="/admin/login" replace />;
   return <>{children}</>;
 };
 
@@ -47,7 +47,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={loadingFallback}>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/menu" element={<MenuPage />} />
