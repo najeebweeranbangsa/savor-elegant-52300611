@@ -37,7 +37,7 @@ const AdminBlogPage = () => {
   };
 
   const save = async () => {
-    const payload = { ...form, published_at: form.published ? new Date().toISOString() : null };
+    const payload = { ...form, published_at: form.published ? new Date().toISOString() : null } as any;
     if (editing) {
       await supabase.from("blog_posts").update(payload).eq("id", editing.id);
     } else {
