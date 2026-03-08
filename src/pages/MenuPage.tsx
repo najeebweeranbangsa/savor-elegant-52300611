@@ -63,12 +63,22 @@ const MenuPage = () => {
           <SectionHeading title="Our Menu" subtitle="From Southern comfort food to craft cocktails, we've got it all" />
 
           <div className="flex flex-wrap justify-center gap-2 mb-10 max-w-3xl mx-auto">
+            <button
+              onClick={() => setActiveCategory("all")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
+                showAll
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              View All
+            </button>
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                  activeCategory === cat.id
+                  !showAll && activeCategory === cat.id
                     ? "bg-primary text-primary-foreground"
                     : "bg-secondary text-muted-foreground hover:text-foreground"
                 }`}
@@ -85,19 +95,46 @@ const MenuPage = () => {
             transition={{ duration: 0.3 }}
             className="max-w-3xl mx-auto"
           >
-            <h3 className="font-display text-2xl font-bold text-primary mb-6 uppercase">{activeCatName}</h3>
-            <div className="space-y-4">
-              {filteredItems.map((item) => (
-                <div key={item.id} className="flex justify-between items-start gap-4 border-b border-border pb-4">
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-foreground">{item.name}</h4>
-                    {item.description && <p className="text-muted-foreground text-sm mt-0.5">{item.description}</p>}
-                  </div>
-                  <span className="text-primary font-bold whitespace-nowrap">${Number(item.price).toFixed(2)}</span>
+            {showAll ? (
+              <div className="space-y-12">
+                {categories.map((cat) => {
+                  const catItems = items.filter((i) => i.category_id === cat.id);
+                  if (catItems.length === 0) return null;
+                  return (
+                    <div key={cat.id}>
+                      <h3 className="font-display text-2xl font-bold text-primary mb-6 uppercase">{cat.name}</h3>
+                      <div className="space-y-4">
+                        {catItems.map((item) => (
+                          <div key={item.id} className="flex justify-between items-start gap-4 border-b border-border pb-4">
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-foreground">{item.name}</h4>
+                              {item.description && <p className="text-muted-foreground text-sm mt-0.5">{item.description}</p>}
+                            </div>
+                            <span className="text-primary font-bold whitespace-nowrap">${Number(item.price).toFixed(2)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <>
+                <h3 className="font-display text-2xl font-bold text-primary mb-6 uppercase">{activeCatName}</h3>
+                <div className="space-y-4">
+                  {filteredItems.map((item) => (
+                    <div key={item.id} className="flex justify-between items-start gap-4 border-b border-border pb-4">
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-foreground">{item.name}</h4>
+                        {item.description && <p className="text-muted-foreground text-sm mt-0.5">{item.description}</p>}
+                      </div>
+                      <span className="text-primary font-bold whitespace-nowrap">${Number(item.price).toFixed(2)}</span>
+                    </div>
+                  ))}
+                  {filteredItems.length === 0 && <p className="text-muted-foreground">No items in this category yet.</p>}
                 </div>
-              ))}
-              {filteredItems.length === 0 && <p className="text-muted-foreground">No items in this category yet.</p>}
-            </div>
+              </>
+            )}
           </motion.div>
 
           {/* Allergy Warning */}
