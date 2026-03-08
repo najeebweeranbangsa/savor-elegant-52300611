@@ -14,6 +14,7 @@ const MenuPage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [items, setItems] = useState<MenuItem[]>([]);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const showAll = activeCategory === "all";
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
