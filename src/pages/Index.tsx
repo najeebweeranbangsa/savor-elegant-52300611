@@ -32,6 +32,8 @@ const testimonials = [
   { name: "Pri B", text: "Love the music and the food MADE FROM SCRATCH PERIOD. U gotta try the pasta... Love the crab cake burger and its sauce. The Dusse margaritas fire... great vibes nice stay.", rating: 5 },
   { name: "Angel Michelle", text: "Sat at the bar with Krystal and she was quick, knowledgeable, and kind. Lots of tvs to watch games/events, and they did have a dj. Prices and portions were fair. I'd certainly recommend this place.", rating: 5 },
   { name: "Juicey Moore", text: "I love the atmosphere. The DJ, THE SERVERS, and the atmospheric was very nice. This is a must try place you'd definitely love the vibes here.", rating: 5 },
+  { name: "Cortez J", text: "The restaurant was clean, the set up was nice & they have nice art on the walls. The food & drinks were good. They have tv's around the restaurant for you to watch sports. Outdoor seating is available & parking is free.", rating: 5 },
+  { name: "Zipporah Ford", text: "The drinks, hookah, and food was a 10/10! I had mild wings and a catfish sandwich & the fish was fried to perfection! Our server was really sweet. If you're looking for a good time check them out.", rating: 5 },
 ];
 
 const upcomingEvents = [
