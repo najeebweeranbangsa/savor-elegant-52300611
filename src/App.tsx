@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 
 const MenuPage = lazy(() => import("./pages/MenuPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const EventsPage = lazy(() => import("./pages/EventsPage"));
 const CateringPage = lazy(() => import("./pages/CateringPage"));
 const CareersPage = lazy(() => import("./pages/CareersPage"));
