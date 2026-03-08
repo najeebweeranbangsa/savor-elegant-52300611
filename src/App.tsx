@@ -24,6 +24,7 @@ const AdminMenuPage = lazy(() => import("./pages/admin/AdminMenuPage"));
 const AdminBlogPage = lazy(() => import("./pages/admin/AdminBlogPage"));
 const AdminEventsPage = lazy(() => import("./pages/admin/AdminEventsPage"));
 const AdminReservationsPage = lazy(() => import("./pages/admin/AdminReservationsPage"));
+const AdminReservationsPrintPage = lazy(() => import("./pages/admin/AdminReservationsPrintPage"));
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/admin/blog" element={<AdminRoute><AdminBlogPage /></AdminRoute>} />
               <Route path="/admin/events" element={<AdminRoute><AdminEventsPage /></AdminRoute>} />
               <Route path="/admin/reservations" element={<AdminRoute><AdminReservationsPage /></AdminRoute>} />
+              <Route path="/admin/reservations/print" element={<AdminRoute><AdminReservationsPrintPage /></AdminRoute>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
