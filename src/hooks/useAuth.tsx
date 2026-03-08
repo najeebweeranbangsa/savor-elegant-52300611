@@ -17,13 +17,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [initializing, setInitializing] = useState(true);
-  const [checkingRole, setCheckingRole] = useState(false);
+  const [roleResolved, setRoleResolved] = useState(false);
 
   useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession);
+      setRoleResolved(!nextSession?.user);
       setInitializing(false);
     });
 
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .getSession()
       .then(({ data: { session } }) => {
         setSession(session);
+        setRoleResolved(!session?.user);
       })
       .finally(() => {
         setInitializing(false);
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     let cancelled = false;
 
     const resolveAdminRole = async (userId: string) => {
-      setCheckingRole(true);
+      setRoleResolved(false);
       try {
         const { data, error } = await supabase.rpc("has_role", {
           _user_id: userId,
@@ -55,13 +57,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } catch {
         if (!cancelled) setIsAdmin(false);
       } finally {
-        if (!cancelled) setCheckingRole(false);
+        if (!cancelled) setRoleResolved(true);
       }
     };
 
     if (!session?.user?.id) {
       setIsAdmin(false);
-      setCheckingRole(false);
+      setRoleResolved(true);
       return;
     }
 
@@ -80,9 +82,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = async () => {
     await supabase.auth.signOut();
     setIsAdmin(false);
+    setRoleResolved(true);
   };
 
-  const loading = useMemo(() => initializing || checkingRole, [initializing, checkingRole]);
+  const loading = useMemo(
+    () => initializing || (!!session?.user && !roleResolved),
+    [initializing, roleResolved, session?.user],
+  );
 
   return (
     <AuthContext.Provider value={{ session, user: session?.user ?? null, isAdmin, loading, signIn, signOut }}>
