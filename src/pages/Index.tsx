@@ -4,12 +4,12 @@ import { ArrowRight, Star, Calendar, UtensilsCrossed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
-import heroBg from "@/assets/hero-bg.jpg";
-import logo from "@/assets/logo.webp";
-import dishBurger from "@/assets/dish-burger.jpg";
-import dishWings from "@/assets/dish-wings.jpg";
-import dishCocktail from "@/assets/dish-cocktail.jpg";
-import dishSeafood from "@/assets/dish-seafood.jpg";
+import heroBg from "@/assets/bar-interior.jpg";
+import logo from "@/assets/logo-full.png";
+import dishBurger from "@/assets/bison-burger.jpeg";
+import dishWings from "@/assets/wings.jpeg";
+import dishCocktail from "@/assets/funnel-fries.jpeg";
+import dishSeafood from "@/assets/crab-claws.jpeg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -23,8 +23,8 @@ const fadeUp = {
 const featuredDishes = [
   { name: "Loaded Burger", desc: "Double patty with bacon, cheddar, onion rings & our signature sauce", price: "$17.99", image: dishBurger },
   { name: "Crispy Wings", desc: "Tossed in your choice of 404 signature sauces", price: "$12.99", image: dishWings },
-  { name: "Seafood Platter", desc: "Grilled shrimp, crab cakes & lemon butter", price: "$24.99", image: dishSeafood },
-  { name: "Tropical Punch", desc: "Our famous house cocktail with fresh fruit blend", price: "$11.99", image: dishCocktail },
+  { name: "Crab Claws", desc: "Crispy fried crab claws with signature seasoning", price: "$16.99", image: dishSeafood },
+  { name: "Funnel Fries", desc: "Crispy funnel cake fries dusted with powdered sugar", price: "$8.99", image: dishCocktail },
 ];
 
 const testimonials = [
