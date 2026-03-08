@@ -227,6 +227,25 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Map */}
+      <section className="section-padding bg-secondary">
+        <div className="container mx-auto max-w-5xl">
+          <SectionHeading title="Find Us" subtitle="Located in the heart of Atlanta on Glenwood Avenue" />
+          <div className="rounded-lg overflow-hidden border border-border aspect-video">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3317.5!2d-84.3!3d33.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9d1a5e6f8b4c226e!2s404%20Sports%20Bar%20%26%20Grill!5e0!3m2!1sen!2sus!4v1700000000000"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="404 Sports Bar & Grill location"
+            />
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 };
