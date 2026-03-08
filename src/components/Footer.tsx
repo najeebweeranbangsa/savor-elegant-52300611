@@ -53,15 +53,15 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <MapPin size={16} className="mt-0.5 text-primary flex-shrink-0" />
-                <span>1329 Glenwood Ave SE, Atlanta, GA 30316</span>
+                <span>1000 Southlake Circle, Morrow, GA 30260</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone size={16} className="text-primary flex-shrink-0" />
-                <span>(404) 549-7977</span>
+                <span>(678)-519-1738</span>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={16} className="text-primary flex-shrink-0" />
-                <span>info@404sportsbar.com</span>
+                <span>brandon@404sportsbar.com</span>
               </li>
             </ul>
           </div>
@@ -72,15 +72,15 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Clock size={16} className="text-primary flex-shrink-0" />
-                <span>Mon–Thu: 4PM – 12AM</span>
+                <span>Mon–Thu: 12PM – 11PM</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={16} className="text-primary flex-shrink-0" />
-                <span>Fri–Sat: 12PM – 2AM</span>
+                <span>Fri–Sat: 12PM – 1AM</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={16} className="text-primary flex-shrink-0" />
-                <span>Sunday: 12PM – 10PM</span>
+                <span>Sunday: 12PM – 11PM</span>
               </li>
             </ul>
           </div>
