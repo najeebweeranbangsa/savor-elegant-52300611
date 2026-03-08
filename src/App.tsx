@@ -24,6 +24,7 @@ const AdminMenuPage = lazy(() => import("./pages/admin/AdminMenuPage"));
 const AdminBlogPage = lazy(() => import("./pages/admin/AdminBlogPage"));
 const AdminEventsPage = lazy(() => import("./pages/admin/AdminEventsPage"));
 const AdminReservationsPage = lazy(() => import("./pages/admin/AdminReservationsPage"));
+const AdminReservationsPrintPage = lazy(() => import("./pages/admin/AdminReservationsPrintPage"));
 
 const queryClient = new QueryClient();
 
