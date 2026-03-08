@@ -9,13 +9,13 @@ import type { Tables } from "@/integrations/supabase/types";
 type BlogPost = Tables<"blog_posts">;
 
 const BlogPostPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
-    supabase.from("blog_posts").select("*").eq("id", id).eq("published", true).single().then(({ data }) => {
+    if (!slug) return;
+    supabase.from("blog_posts").select("*").eq("slug" as any, slug).eq("published", true).single().then(({ data }) => {
       setPost(data);
       setLoading(false);
     });
