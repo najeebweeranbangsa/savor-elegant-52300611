@@ -86,6 +86,7 @@ const CareersPage = () => {
           </div>
         </div>
       </section>
+      </section>
     </Layout>
   );
 };
