@@ -71,9 +71,10 @@ const BlogPostPage = () => {
             )}
 
             {post.content && (
-              <div className="prose prose-invert prose-lg max-w-none whitespace-pre-wrap text-foreground/90 leading-relaxed">
-                {post.content}
-              </div>
+              <div
+                className="prose prose-invert prose-lg max-w-none text-foreground/90 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
             )}
           </motion.div>
         </div>
