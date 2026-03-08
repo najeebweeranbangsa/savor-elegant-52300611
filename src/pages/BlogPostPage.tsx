@@ -19,7 +19,7 @@ const BlogPostPage = () => {
       setPost(data);
       setLoading(false);
     });
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (

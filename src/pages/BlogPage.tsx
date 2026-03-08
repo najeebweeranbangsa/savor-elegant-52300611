@@ -39,7 +39,7 @@ const BlogPage = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {posts.map((post, i) => (
-                <Link to={`/blog/${post.id}`} key={post.id}>
+                <Link to={`/blog/${(post as any).slug || post.id}`} key={post.id}>
                   <motion.article
                     className="bg-card rounded-lg overflow-hidden border border-border group cursor-pointer h-full"
                     initial={{ opacity: 0, y: 20 }}
