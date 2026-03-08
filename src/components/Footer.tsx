@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Twitter } from "lucide-react";
-import logo from "@/assets/logo.webp";
+import logo from "@/assets/logo-small.png";
 
 const Footer = () => {
   return (
@@ -14,13 +14,13 @@ const Footer = () => {
               Atlanta's premier sports bar & grill. Great food, cold drinks, and the best game-day atmosphere in the city.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="p-2 rounded-full bg-muted hover:bg-primary transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/404sportsbar/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-muted hover:bg-primary transition-colors" aria-label="Facebook">
                 <Facebook size={18} />
               </a>
-              <a href="#" className="p-2 rounded-full bg-muted hover:bg-primary transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/404sportsbar/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-muted hover:bg-primary transition-colors" aria-label="Instagram">
                 <Instagram size={18} />
               </a>
-              <a href="#" className="p-2 rounded-full bg-muted hover:bg-primary transition-colors" aria-label="Twitter">
+              <a href="https://x.com/404sportsbar" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-muted hover:bg-primary transition-colors" aria-label="Twitter">
                 <Twitter size={18} />
               </a>
             </div>
