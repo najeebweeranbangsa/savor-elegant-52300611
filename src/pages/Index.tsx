@@ -4,12 +4,12 @@ import { ArrowRight, Star, Calendar, UtensilsCrossed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
-import heroBg from "@/assets/hero-bg.jpg";
-import logo from "@/assets/logo.webp";
-import dishBurger from "@/assets/dish-burger.jpg";
-import dishWings from "@/assets/dish-wings.jpg";
-import dishCocktail from "@/assets/dish-cocktail.jpg";
-import dishSeafood from "@/assets/dish-seafood.jpg";
+import heroBg from "@/assets/bar-interior.jpg";
+import logo from "@/assets/logo-full.png";
+import dishBurger from "@/assets/bison-burger.jpeg";
+import dishWings from "@/assets/wings.jpeg";
+import dishCocktail from "@/assets/funnel-fries.jpeg";
+import dishSeafood from "@/assets/crab-claws.jpeg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
