@@ -37,7 +37,7 @@ const CareersPage = () => {
         <div className="absolute inset-0 bg-background/70" />
         <div className="relative z-10 text-center px-4">
           <h1 className="font-display text-4xl md:text-5xl font-bold uppercase mb-2">Careers</h1>
-          <p className="text-muted-foreground text-lg">Join the 404 family — we're hiring!</p>
+          <p className="text-muted-foreground text-lg">Join the 404 family, we're hiring!</p>
         </div>
       </section>
 

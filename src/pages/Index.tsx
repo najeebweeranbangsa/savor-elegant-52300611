@@ -96,7 +96,7 @@ const Index = () => {
         <div className="container mx-auto max-w-4xl text-center">
           <SectionHeading title="Welcome to 404 Sports Bar & Grill" subtitle="Where sports meets Southern hospitality" />
           <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-            Located in the heart of Atlanta on Glenwood Avenue, 404 Sports Bar & Grill is more than just a restaurant — it's an experience. 
+            Located in the heart of Atlanta on Glenwood Avenue, 404 Sports Bar & Grill is more than just a restaurant, it's an experience. 
             Whether you're catching the big game on one of our massive screens, enjoying our handcrafted cocktails, or diving into our 
             Southern-inspired menu, we've got everything you need for a perfect night out. From hookah nights to live music, there's always 
             something happening at 404.
@@ -199,7 +199,7 @@ const Index = () => {
                   ))}
                 </div>
                 <p className="text-foreground/80 text-sm italic mb-4">"{t.text}"</p>
-                <p className="text-primary font-semibold text-sm">— {t.name}</p>
+                <p className="text-primary font-semibold text-sm">{t.name}</p>
               </motion.div>
             ))}
           </div>
