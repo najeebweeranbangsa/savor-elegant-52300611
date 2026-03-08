@@ -31,8 +31,8 @@ const MenuPage = () => {
     fetch();
   }, []);
 
-  const filteredItems = items.filter((i) => i.category_id === activeCategory);
-  const activeCatName = categories.find((c) => c.id === activeCategory)?.name;
+  const filteredItems = showAll ? items : items.filter((i) => i.category_id === activeCategory);
+  const activeCatName = showAll ? "Full Menu" : categories.find((c) => c.id === activeCategory)?.name;
 
   if (loading) {
     return (
