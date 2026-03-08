@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Briefcase } from "lucide-react";
+import careersHero from "@/assets/careers-hero.jpg";
 
 const openings = [
   { title: "Line Cook", type: "Full-Time", desc: "Experienced line cook to join our kitchen team. Must have restaurant experience." },
@@ -30,10 +31,18 @@ const CareersPage = () => {
 
   return (
     <Layout>
-      <section className="section-padding min-h-screen">
-        <div className="container mx-auto max-w-5xl">
-          <SectionHeading title="Careers" subtitle="Join the 404 family — we're hiring!" />
+      {/* Hero */}
+      <section className="relative h-[40vh] min-h-[280px] flex items-center justify-center overflow-hidden">
+        <img src={careersHero} alt="404 Sports Bar team" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-background/70" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="font-display text-4xl md:text-5xl font-bold uppercase mb-2">Careers</h1>
+          <p className="text-muted-foreground text-lg">Join the 404 family — we're hiring!</p>
+        </div>
+      </section>
 
+      <section className="section-padding">
+        <div className="container mx-auto max-w-5xl">
           {/* Openings */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-14">
             {openings.map((job) => (
