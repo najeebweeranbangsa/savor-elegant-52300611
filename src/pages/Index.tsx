@@ -207,8 +207,10 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-primary text-primary-foreground text-center">
-        <div className="container mx-auto max-w-2xl">
+      <section className="relative section-padding text-primary-foreground text-center overflow-hidden">
+        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-primary/85" />
+        <div className="relative z-10 container mx-auto max-w-2xl">
           <h2 className="font-display text-3xl md:text-4xl font-bold uppercase mb-4">Ready to Experience 404?</h2>
           <p className="mb-8 opacity-90">Reserve your table or order your favorites for pickup now.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
