@@ -28,9 +28,10 @@ const featuredDishes = [
 ];
 
 const testimonials = [
-  { name: "Marcus J.", text: "Best wings in Atlanta, hands down. The atmosphere during game nights is unbeatable!", rating: 5 },
-  { name: "Sarah T.", text: "We had our birthday party catered by 404 and the food was incredible. Highly recommend!", rating: 5 },
-  { name: "David R.", text: "Great cocktails, amazing vibes, and the burgers are to die for. Our new go-to spot!", rating: 5 },
+  { name: "Jennel", text: "I love, love, love, the crab claws that they serve here. The atmosphere is chill, good vibes, the service is awesome. If you're looking for a down to earth spot near Southlake mall, 404 Sports Bar & Grill is the place to be.", rating: 5 },
+  { name: "Pri B", text: "Love the music and the food MADE FROM SCRATCH PERIOD. U gotta try the pasta... Love the crab cake burger and its sauce. The Dusse margaritas fire... great vibes nice stay.", rating: 5 },
+  { name: "Angel Michelle", text: "Sat at the bar with Krystal and she was quick, knowledgeable, and kind. Lots of tvs to watch games/events, and they did have a dj. Prices and portions were fair. I'd certainly recommend this place.", rating: 5 },
+  { name: "Juicey Moore", text: "I love the atmosphere. The DJ, THE SERVERS, and the atmospheric was very nice. This is a must try place you'd definitely love the vibes here.", rating: 5 },
 ];
 
 const upcomingEvents = [
