@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { AlertTriangle } from "lucide-react";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
@@ -109,6 +110,16 @@ const MenuPage = () => {
             </p>
             <p className="text-muted-foreground text-sm leading-relaxed">
               If you have a food allergy, please notify your server before ordering so we can assist you in selecting the safest dining options.
+            </p>
+          </div>
+
+          {/* About Info */}
+          <div className="max-w-3xl mx-auto mt-10 text-center space-y-4">
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Located minutes from Southlake Mall, 404 Sports Bar & Grill is your home for the best wings, nightlife, and food in Morrow. Explore our menu, <Link to="/order" className="text-primary hover:underline">order ahead</Link> through online ordering, or read the latest stories and updates on our <Link to="/blog" className="text-primary hover:underline">blog</Link>.
+            </p>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Planning a night out or special event? <Link to="/reservation" className="text-primary hover:underline">Reserve your space</Link> at 404, book group meals through <Link to="/catering" className="text-primary hover:underline">catering</Link>, and see everything happening this week on our <Link to="/events" className="text-primary hover:underline">events page</Link>.
             </p>
           </div>
         </div>
