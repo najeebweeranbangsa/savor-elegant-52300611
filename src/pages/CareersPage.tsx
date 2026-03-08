@@ -42,7 +42,7 @@ const CareersPage = () => {
       </section>
 
       <section className="section-padding">
-
+        <div className="container mx-auto max-w-5xl">
           {/* Openings */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-14">
             {openings.map((job) => (
@@ -85,7 +85,6 @@ const CareersPage = () => {
             </form>
           </div>
         </div>
-      </section>
       </section>
     </Layout>
   );
