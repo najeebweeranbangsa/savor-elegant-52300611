@@ -32,6 +32,8 @@ const loadingFallback = (
   </div>
 );
 
+const Loading = () => loadingFallback;
+
 const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAdmin, loading, session } = useAuth();
   if (loading) return loadingFallback;
