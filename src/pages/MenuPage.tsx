@@ -57,7 +57,7 @@ const MenuPage = () => {
     <Layout>
       <section className="section-padding min-h-screen">
         <div className="container mx-auto">
-          <SectionHeading title="Our Menu" subtitle="From Southern comfort food to craft cocktails — we've got it all" />
+          <SectionHeading title="Our Menu" subtitle="From Southern comfort food to craft cocktails, we've got it all" />
 
           <div className="flex flex-wrap justify-center gap-2 mb-10">
             {categories.map((cat) => (

@@ -199,7 +199,7 @@ const Index = () => {
                   ))}
                 </div>
                 <p className="text-foreground/80 text-sm italic mb-4">"{t.text}"</p>
-                <p className="text-primary font-semibold text-sm">— {t.name}</p>
+                <p className="text-primary font-semibold text-sm">{t.name}</p>
               </motion.div>
             ))}
           </div>
