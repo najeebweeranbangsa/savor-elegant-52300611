@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Clock } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -24,7 +26,8 @@ const ReservationPage = () => {
   const [loading, setLoading] = useState(false);
   const [guests, setGuests] = useState("");
   const [time, setTime] = useState("");
-
+  const [customTime, setCustomTime] = useState("");
+  const [timeOpen, setTimeOpen] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -53,6 +56,7 @@ const ReservationPage = () => {
       form.reset();
       setGuests("");
       setTime("");
+      setCustomTime("");
 
       supabase.functions.invoke("ghl-webhook", {
         body: {
@@ -83,16 +87,60 @@ const ReservationPage = () => {
               <Input name="email" type="email" placeholder="Email Address" required />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input name="date" type="date" required />
-                <Select value={time} onValueChange={setTime} required>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Time" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {TIME_OPTIONS.map((t) => (
-                      <SelectItem key={t} value={t}>{t}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Popover open={timeOpen} onOpenChange={setTimeOpen}>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    >
+                      <span className={time ? "text-foreground" : "text-muted-foreground"}>
+                        {time || "Select Time"}
+                      </span>
+                      <Clock className="h-4 w-4 opacity-50" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56 p-2 max-h-64 overflow-y-auto" align="start">
+                    <div className="space-y-1">
+                      <div className="flex gap-2 p-1">
+                        <Input
+                          type="time"
+                          value={customTime}
+                          onChange={(e) => setCustomTime(e.target.value)}
+                          className="h-8 text-xs"
+                        />
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="secondary"
+                          className="h-8 text-xs shrink-0"
+                          onClick={() => {
+                            if (customTime) {
+                              const [h, m] = customTime.split(":");
+                              const hour = parseInt(h);
+                              const ampm = hour >= 12 ? "PM" : "AM";
+                              const h12 = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+                              setTime(`${h12}:${m} ${ampm}`);
+                              setTimeOpen(false);
+                            }
+                          }}
+                        >
+                          Set
+                        </Button>
+                      </div>
+                      <div className="border-t border-border my-1" />
+                      {TIME_OPTIONS.map((t) => (
+                        <button
+                          key={t}
+                          type="button"
+                          className={`w-full text-left px-2 py-1.5 text-sm rounded hover:bg-accent hover:text-accent-foreground ${time === t ? "bg-accent text-accent-foreground" : ""}`}
+                          onClick={() => { setTime(t); setTimeOpen(false); }}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
               <Select value={guests} onValueChange={setGuests} required>
                 <SelectTrigger>
