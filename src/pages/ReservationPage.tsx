@@ -35,6 +35,19 @@ const ReservationPage = () => {
       toast.success("Reservation request submitted! We'll confirm shortly.");
       form.reset();
       setGuests("");
+
+      // Send to GoHighLevel in the background
+      supabase.functions.invoke("ghl-webhook", {
+        body: {
+          full_name: data.get("full_name") as string,
+          phone: data.get("phone") as string,
+          email: data.get("email") as string,
+          reservation_date: data.get("date") as string,
+          reservation_time: data.get("time") as string,
+          guests: parseInt(guests) || 1,
+          notes: (data.get("notes") as string) || "",
+        },
+      }).catch((err) => console.error("GHL sync error:", err));
     }
   };
 
