@@ -2,8 +2,10 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
+
+const GHL_API_BASE = 'https://services.leadconnectorhq.com';
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -11,9 +13,14 @@ serve(async (req) => {
   }
 
   try {
-    const GHL_WEBHOOK_URL = Deno.env.get('GHL_WEBHOOK_URL');
-    if (!GHL_WEBHOOK_URL) {
-      throw new Error('GHL_WEBHOOK_URL is not configured');
+    const GHL_API_KEY = Deno.env.get('GHL_API_KEY');
+    if (!GHL_API_KEY) {
+      throw new Error('GHL_API_KEY is not configured');
+    }
+
+    const GHL_LOCATION_ID = Deno.env.get('GHL_LOCATION_ID');
+    if (!GHL_LOCATION_ID) {
+      throw new Error('GHL_LOCATION_ID is not configured');
     }
 
     const body = await req.json();
@@ -26,32 +33,48 @@ serve(async (req) => {
       );
     }
 
-    const response = await fetch(GHL_WEBHOOK_URL, {
+    // Create or update contact in GHL via Contacts API v2
+    const contactPayload = {
+      locationId: GHL_LOCATION_ID,
+      firstName: first_name,
+      lastName: last_name,
+      phone: phone,
+      email: email,
+      tags: ['website-reservation'],
+      source: '404 Sports Bar Website',
+      customFields: [
+        { key: 'reservation_date', field_value: reservation_date },
+        { key: 'reservation_time', field_value: reservation_time },
+        { key: 'guests', field_value: String(guests) },
+        { key: 'notes', field_value: notes || '' },
+      ],
+    };
+
+    console.log('Sending to GHL Contacts API:', JSON.stringify(contactPayload));
+
+    const response = await fetch(`${GHL_API_BASE}/contacts/upsert`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        first_name,
-        last_name,
-        phone,
-        email,
-        reservation_date,
-        reservation_time,
-        guests,
-        notes: notes || '',
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GHL_API_KEY}`,
+        'Version': '2021-07-28',
+      },
+      body: JSON.stringify(contactPayload),
     });
 
+    const responseText = await response.text();
+    console.log(`GHL API response [${response.status}]:`, responseText);
+
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`GHL webhook failed [${response.status}]: ${errorText}`);
+      throw new Error(`GHL API failed [${response.status}]: ${responseText}`);
     }
 
     return new Response(
-      JSON.stringify({ success: true }),
+      JSON.stringify({ success: true, ghl_response: JSON.parse(responseText) }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error('GHL webhook error:', error);
+    console.error('GHL API error:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';
     return new Response(
       JSON.stringify({ success: false, error: message }),
