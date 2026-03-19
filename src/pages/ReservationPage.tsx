@@ -26,7 +26,8 @@ const ReservationPage = () => {
   const [loading, setLoading] = useState(false);
   const [guests, setGuests] = useState("");
   const [time, setTime] = useState("");
-
+  const [customTime, setCustomTime] = useState("");
+  const [timeOpen, setTimeOpen] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
