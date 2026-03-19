@@ -56,6 +56,7 @@ const ReservationPage = () => {
       form.reset();
       setGuests("");
       setTime("");
+      setCustomTime("");
 
       supabase.functions.invoke("ghl-webhook", {
         body: {
