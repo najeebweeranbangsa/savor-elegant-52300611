@@ -17,9 +17,9 @@ serve(async (req) => {
     }
 
     const body = await req.json();
-    const { full_name, phone, email, reservation_date, reservation_time, guests, notes } = body;
+    const { first_name, last_name, phone, email, reservation_date, reservation_time, guests, notes } = body;
 
-    if (!full_name || !phone || !email || !reservation_date || !reservation_time || !guests) {
+    if (!first_name || !last_name || !phone || !email || !reservation_date || !reservation_time || !guests) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -30,7 +30,8 @@ serve(async (req) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        full_name,
+        first_name,
+        last_name,
         phone,
         email,
         reservation_date,
