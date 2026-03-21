@@ -60,6 +60,7 @@ const ReservationPage = () => {
 
       supabase.functions.invoke("ghl-webhook", {
         body: {
+          form_type: "reservation",
           first_name: firstName,
           last_name: lastName,
           phone: data.get("phone") as string,

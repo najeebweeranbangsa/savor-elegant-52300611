@@ -5,19 +5,55 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import cateringHero from "@/assets/spring-rolls.jpg";
 
 const CateringPage = () => {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+
+    const fullName = `${(data.get("first_name") as string).trim()} ${(data.get("last_name") as string).trim()}`;
+    const phone = data.get("phone") as string;
+    const email = data.get("email") as string;
+    const eventType = data.get("event_type") as string;
+    const eventDate = data.get("event_date") as string;
+    const guests = parseInt(data.get("guests") as string) || 1;
+    const details = (data.get("details") as string) || null;
+
+    const { error } = await supabase.from("catering_inquiries").insert({
+      full_name: fullName,
+      email,
+      phone,
+      event_type: eventType,
+      event_date: eventDate,
+      guests,
+      details,
+    });
+
+    setLoading(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+    } else {
       toast.success("Thank you! We'll be in touch about your catering inquiry.");
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+
+      supabase.functions.invoke("ghl-webhook", {
+        body: {
+          form_type: "catering",
+          full_name: fullName,
+          phone, email,
+          event_type: eventType,
+          event_date: eventDate,
+          guests,
+          details: details || "",
+        },
+      }).catch((err) => console.error("GHL sync error:", err));
+    }
   };
 
   return (
@@ -55,16 +91,17 @@ const CateringPage = () => {
             <h3 className="font-display text-xl font-semibold mb-6">Catering Inquiry</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input placeholder="Your Name" required />
-                <Input type="email" placeholder="Email Address" required />
+                <Input name="first_name" placeholder="First Name" required />
+                <Input name="last_name" placeholder="Last Name" required />
               </div>
-              <Input type="tel" placeholder="Phone Number" required />
-              <Input placeholder="Event Type (e.g., Wedding, Corporate)" required />
+              <Input name="email" type="email" placeholder="Email Address" required />
+              <Input name="phone" type="tel" placeholder="Phone Number" required />
+              <Input name="event_type" placeholder="Event Type (e.g., Wedding, Corporate)" required />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input type="date" placeholder="Event Date" required />
-                <Input type="number" placeholder="Number of Guests" min={1} required />
+                <Input name="event_date" type="date" required />
+                <Input name="guests" type="number" placeholder="Number of Guests" min={1} required />
               </div>
-              <Textarea placeholder="Tell us more about your event..." rows={4} required />
+              <Textarea name="details" placeholder="Tell us more about your event..." rows={4} required />
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Sending..." : "Submit Inquiry"}
               </Button>

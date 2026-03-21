@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Briefcase } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import careersHero from "@/assets/careers-hero.jpg";
 
 const openings = [
@@ -18,15 +19,45 @@ const openings = [
 
 const CareersPage = () => {
   const [loading, setLoading] = useState(false);
+  const [position, setPosition] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+
+    const fullName = `${(data.get("first_name") as string).trim()} ${(data.get("last_name") as string).trim()}`;
+    const phone = data.get("phone") as string;
+    const email = data.get("email") as string;
+    const experience = (data.get("experience") as string) || null;
+
+    const { error } = await supabase.from("career_applications").insert({
+      full_name: fullName,
+      email,
+      phone,
+      position,
+      experience,
+    });
+
+    setLoading(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+    } else {
       toast.success("Application submitted! We'll be in touch.");
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+      setPosition("");
+
+      supabase.functions.invoke("ghl-webhook", {
+        body: {
+          form_type: "careers",
+          full_name: fullName,
+          phone, email,
+          position,
+          experience: experience || "",
+        },
+      }).catch((err) => console.error("GHL sync error:", err));
+    }
   };
 
   return (
@@ -64,11 +95,12 @@ const CareersPage = () => {
             <h3 className="font-display text-xl font-semibold mb-6 text-center">Apply Now</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input placeholder="Full Name" required />
-                <Input type="email" placeholder="Email Address" required />
+                <Input name="first_name" placeholder="First Name" required />
+                <Input name="last_name" placeholder="Last Name" required />
               </div>
-              <Input type="tel" placeholder="Phone Number" required />
-              <Select required>
+              <Input name="email" type="email" placeholder="Email Address" required />
+              <Input name="phone" type="tel" placeholder="Phone Number" required />
+              <Select value={position} onValueChange={setPosition} required>
                 <SelectTrigger>
                   <SelectValue placeholder="Position of Interest" />
                 </SelectTrigger>
@@ -78,7 +110,7 @@ const CareersPage = () => {
                   ))}
                 </SelectContent>
               </Select>
-              <Textarea placeholder="Tell us about your experience..." rows={4} required />
+              <Textarea name="experience" placeholder="Tell us about your experience..." rows={4} required />
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Submitting..." : "Submit Application"}
               </Button>
