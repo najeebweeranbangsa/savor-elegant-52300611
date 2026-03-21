@@ -63,7 +63,7 @@ const CareersPage = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative h-[40vh] min-h-[280px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[50vh] min-h-[350px] flex items-center justify-center overflow-hidden">
         <img src={careersHero} alt="404 Sports Bar team" className="absolute inset-0 w-full h-full object-cover object-top" />
         <div className="absolute inset-0 bg-background/70" />
         <div className="relative z-10 text-center px-4">
