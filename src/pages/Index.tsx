@@ -170,31 +170,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Google Reviews */}
       <section className="section-padding">
         <div className="container mx-auto">
           <SectionHeading title="What Our Guests Say" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                className="bg-card p-6 rounded-lg border border-border"
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-              >
-                <div className="flex gap-0.5 mb-3">
-                  {Array.from({ length: t.rating }).map((_, idx) => (
-                    <Star key={idx} size={14} className="fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-foreground/80 text-sm italic mb-4">"{t.text}"</p>
-                <p className="text-primary font-semibold text-sm">{t.name}</p>
-              </motion.div>
-            ))}
-          </div>
+          <div className="elfsight-app-264d853a-7c60-4b81-9c5d-466355e9aa4b" data-elfsight-app-lazy></div>
         </div>
       </section>
 
