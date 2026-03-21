@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { Briefcase } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import careersHero from "@/assets/careers-hero.jpg";
+import careersHero from "@/assets/careers-hero.avif";
 
 const openings = [
   { title: "Line Cook", type: "Full-Time", desc: "Experienced line cook to join our kitchen team. Must have restaurant experience." },
