@@ -14,41 +14,80 @@ serve(async (req) => {
 
   try {
     const GHL_API_KEY = Deno.env.get('GHL_API_KEY');
-    if (!GHL_API_KEY) {
-      throw new Error('GHL_API_KEY is not configured');
-    }
+    if (!GHL_API_KEY) throw new Error('GHL_API_KEY is not configured');
 
     const GHL_LOCATION_ID = Deno.env.get('GHL_LOCATION_ID');
-    if (!GHL_LOCATION_ID) {
-      throw new Error('GHL_LOCATION_ID is not configured');
-    }
+    if (!GHL_LOCATION_ID) throw new Error('GHL_LOCATION_ID is not configured');
 
     const body = await req.json();
-    const { first_name, last_name, phone, email, reservation_date, reservation_time, guests, notes } = body;
+    const { form_type } = body;
 
-    if (!first_name || !last_name || !phone || !email || !reservation_date || !reservation_time || !guests) {
-      return new Response(
-        JSON.stringify({ error: 'Missing required fields' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+    let contactPayload: Record<string, unknown>;
+
+    if (form_type === 'reservation') {
+      const { first_name, last_name, phone, email, reservation_date, reservation_time, guests, notes } = body;
+      if (!first_name || !last_name || !phone || !email || !reservation_date || !reservation_time || !guests) {
+        return new Response(JSON.stringify({ error: 'Missing required fields' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      }
+      contactPayload = {
+        locationId: GHL_LOCATION_ID,
+        firstName: first_name,
+        lastName: last_name,
+        phone, email,
+        tags: ['website-reservation'],
+        source: '404 Sports Bar Website',
+        customFields: [
+          { key: 'reservation_date', field_value: reservation_date },
+          { key: 'reservation_time', field_value: reservation_time },
+          { key: 'guests', field_value: String(guests) },
+          { key: 'notes', field_value: notes || '' },
+        ],
+      };
+    } else if (form_type === 'catering') {
+      const { full_name, phone, email, event_type, event_date, guests, details } = body;
+      if (!full_name || !phone || !email || !event_type || !event_date || !guests) {
+        return new Response(JSON.stringify({ error: 'Missing required fields' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      }
+      const [firstName, ...rest] = full_name.split(' ');
+      const lastName = rest.join(' ') || '';
+      contactPayload = {
+        locationId: GHL_LOCATION_ID,
+        firstName, lastName,
+        phone, email,
+        tags: ['website-catering'],
+        source: '404 Sports Bar Website',
+        customFields: [
+          { key: 'event_type', field_value: event_type },
+          { key: 'event_date', field_value: event_date },
+          { key: 'guests', field_value: String(guests) },
+          { key: 'notes', field_value: details || '' },
+        ],
+      };
+    } else if (form_type === 'careers') {
+      const { full_name, phone, email, position, experience } = body;
+      if (!full_name || !phone || !email || !position) {
+        return new Response(JSON.stringify({ error: 'Missing required fields' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      }
+      const [firstName, ...rest] = full_name.split(' ');
+      const lastName = rest.join(' ') || '';
+      contactPayload = {
+        locationId: GHL_LOCATION_ID,
+        firstName, lastName,
+        phone, email,
+        tags: ['website-careers'],
+        source: '404 Sports Bar Website',
+        customFields: [
+          { key: 'position', field_value: position },
+          { key: 'experience', field_value: experience || '' },
+        ],
+      };
+    } else {
+      return new Response(JSON.stringify({ error: 'Invalid form_type' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
-
-    // Create or update contact in GHL via Contacts API v2
-    const contactPayload = {
-      locationId: GHL_LOCATION_ID,
-      firstName: first_name,
-      lastName: last_name,
-      phone: phone,
-      email: email,
-      tags: ['website-reservation'],
-      source: '404 Sports Bar Website',
-      customFields: [
-        { key: 'reservation_date', field_value: reservation_date },
-        { key: 'reservation_time', field_value: reservation_time },
-        { key: 'guests', field_value: String(guests) },
-        { key: 'notes', field_value: notes || '' },
-      ],
-    };
 
     console.log('Sending to GHL Contacts API:', JSON.stringify(contactPayload));
 
