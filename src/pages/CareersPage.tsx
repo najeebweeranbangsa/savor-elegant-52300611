@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { Briefcase } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import careersHero from "@/assets/careers-hero.webp";
+import careersHero from "@/assets/careers-hero.jpg";
 
 const openings = [
   { title: "Line Cook", type: "Full-Time", desc: "Experienced line cook to join our kitchen team. Must have restaurant experience." },
@@ -62,71 +62,59 @@ const CareersPage = () => {
 
   return (
     <Layout>
-      {/* Hero + Form Split Layout */}
+      {/* Hero */}
+      <section className="relative h-[40vh] min-h-[280px] flex items-center justify-center overflow-hidden">
+        <img src={careersHero} alt="404 Sports Bar team" className="absolute inset-0 w-full h-full object-cover object-top" />
+        <div className="absolute inset-0 bg-background/70" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="font-display text-4xl md:text-5xl font-bold uppercase mb-2">Careers</h1>
+          <p className="text-muted-foreground text-lg">Join the 404 family, we're hiring!</p>
+        </div>
+      </section>
+
       <section className="section-padding">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            {/* Left: Image */}
-            <div className="hidden lg:block sticky top-24">
-              <div className="rounded-lg overflow-hidden border border-border">
-                <img
-                  src={careersHero}
-                  alt="404 Sports Bar & Grill exterior"
-                  className="w-full h-auto object-cover aspect-[4/3]"
-                />
-              </div>
-            </div>
-
-            {/* Right: Content & Form */}
-            <div>
-              <h1 className="font-display text-4xl md:text-5xl font-bold uppercase mb-2">Careers</h1>
-              <p className="text-muted-foreground text-lg mb-8">Join the 404 family — we're hiring!</p>
-
-              {/* Openings */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
-                {openings.map((job) => (
-                  <div key={job.title} className="bg-card p-4 rounded-lg border border-border">
-                    <div className="flex items-start gap-3">
-                      <Briefcase size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h3 className="font-display text-base font-semibold">{job.title}</h3>
-                        <span className="text-primary text-xs font-medium">{job.type}</span>
-                        <p className="text-muted-foreground text-xs mt-1">{job.desc}</p>
-                      </div>
-                    </div>
+        <div className="container mx-auto max-w-5xl">
+          {/* Openings */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-14">
+            {openings.map((job) => (
+              <div key={job.title} className="bg-card p-5 rounded-lg border border-border">
+                <div className="flex items-start gap-3">
+                  <Briefcase size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="font-display text-lg font-semibold">{job.title}</h3>
+                    <span className="text-primary text-xs font-medium">{job.type}</span>
+                    <p className="text-muted-foreground text-sm mt-1">{job.desc}</p>
                   </div>
-                ))}
+                </div>
               </div>
+            ))}
+          </div>
 
-              {/* Application Form */}
-              <div className="bg-card p-6 md:p-8 rounded-lg border border-border">
-                <h3 className="font-display text-xl font-semibold mb-6">Apply Now</h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Input name="first_name" placeholder="First Name" required />
-                    <Input name="last_name" placeholder="Last Name" required />
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Input name="email" type="email" placeholder="Email Address" required />
-                    <Input name="phone" type="tel" placeholder="Phone Number" required />
-                  </div>
-                  <Select value={position} onValueChange={setPosition} required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Position of Interest" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {openings.map((job) => (
-                        <SelectItem key={job.title} value={job.title}>{job.title}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Textarea name="experience" placeholder="Tell us about your experience..." rows={4} required />
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? "Submitting..." : "Submit Application"}
-                  </Button>
-                </form>
+          {/* Application Form */}
+          <div className="max-w-xl mx-auto bg-card p-6 md:p-8 rounded-lg border border-border">
+            <h3 className="font-display text-xl font-semibold mb-6 text-center">Apply Now</h3>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input name="first_name" placeholder="First Name" required />
+                <Input name="last_name" placeholder="Last Name" required />
               </div>
-            </div>
+              <Input name="email" type="email" placeholder="Email Address" required />
+              <Input name="phone" type="tel" placeholder="Phone Number" required />
+              <Select value={position} onValueChange={setPosition} required>
+                <SelectTrigger>
+                  <SelectValue placeholder="Position of Interest" />
+                </SelectTrigger>
+                <SelectContent>
+                  {openings.map((job) => (
+                    <SelectItem key={job.title} value={job.title}>{job.title}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Textarea name="experience" placeholder="Tell us about your experience..." rows={4} required />
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Submitting..." : "Submit Application"}
+              </Button>
+            </form>
           </div>
         </div>
       </section>
