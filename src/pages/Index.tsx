@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Calendar, UtensilsCrossed } from "lucide-react";
+import { ArrowRight, Calendar, UtensilsCrossed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
