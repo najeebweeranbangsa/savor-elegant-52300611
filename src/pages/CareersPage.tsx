@@ -66,7 +66,18 @@ const CareersPage = () => {
       <section className="section-padding">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            {/* Left: Form */}
+            {/* Left: Image */}
+            <div className="hidden lg:block sticky top-24">
+              <div className="rounded-lg overflow-hidden border border-border">
+                <img
+                  src={careersHero}
+                  alt="404 Sports Bar & Grill exterior"
+                  className="w-full h-auto object-cover aspect-[4/3]"
+                />
+              </div>
+            </div>
+
+            {/* Right: Content & Form */}
             <div>
               <h1 className="font-display text-4xl md:text-5xl font-bold uppercase mb-2">Careers</h1>
               <p className="text-muted-foreground text-lg mb-8">Join the 404 family — we're hiring!</p>
@@ -114,17 +125,6 @@ const CareersPage = () => {
                     {loading ? "Submitting..." : "Submit Application"}
                   </Button>
                 </form>
-              </div>
-            </div>
-
-            {/* Right: Image */}
-            <div className="hidden lg:block sticky top-24">
-              <div className="rounded-lg overflow-hidden border border-border">
-                <img
-                  src={careersHero}
-                  alt="404 Sports Bar team"
-                  className="w-full h-auto object-cover aspect-[3/4]"
-                />
               </div>
             </div>
           </div>
