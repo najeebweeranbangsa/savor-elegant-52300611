@@ -53,6 +53,78 @@ export type Database = {
         }
         Relationships: []
       }
+      career_applications: {
+        Row: {
+          created_at: string
+          email: string
+          experience: string | null
+          full_name: string
+          id: string
+          phone: string
+          position: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          experience?: string | null
+          full_name: string
+          id?: string
+          phone: string
+          position: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          experience?: string | null
+          full_name?: string
+          id?: string
+          phone?: string
+          position?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      catering_inquiries: {
+        Row: {
+          created_at: string
+          details: string | null
+          email: string
+          event_date: string
+          event_type: string
+          full_name: string
+          guests: number
+          id: string
+          phone: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          details?: string | null
+          email: string
+          event_date: string
+          event_type: string
+          full_name: string
+          guests: number
+          id?: string
+          phone: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          details?: string | null
+          email?: string
+          event_date?: string
+          event_type?: string
+          full_name?: string
+          guests?: number
+          id?: string
+          phone?: string
+          status?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
