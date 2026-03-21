@@ -12,15 +12,10 @@ const OrderPage = () => (
           <p className="text-muted-foreground text-sm">
             Choose your preferred way to order. Place your order online through our partner platforms or call us directly.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Button size="lg" className="gap-2" asChild>
-              <a href="https://www.doordash.com" target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={18} /> Order on DoorDash
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" className="gap-2 border-primary/50 text-primary hover:bg-primary/10" asChild>
-              <a href="https://www.ubereats.com" target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={18} /> Order on Uber Eats
+              <a href="https://orders.404sportsbar.com/order/" target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={18} /> Order on Toast
               </a>
             </Button>
           </div>
