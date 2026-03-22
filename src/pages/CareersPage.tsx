@@ -159,6 +159,7 @@ const CareersPage = () => {
                   </Button>
                 )}
               </div>
+              <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Submitting..." : "Submit Application"}
               </Button>
             </form>
