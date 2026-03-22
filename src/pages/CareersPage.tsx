@@ -137,7 +137,28 @@ const CareersPage = () => {
                 </SelectContent>
               </Select>
               <Textarea name="experience" placeholder="Tell us about your experience..." rows={4} required />
-              <Button type="submit" className="w-full" disabled={loading}>
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  className="hidden"
+                  onChange={(e) => setResumeFile(e.target.files?.[0] || null)}
+                />
+                {resumeFile ? (
+                  <div className="flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm">
+                    <Upload size={16} className="text-primary flex-shrink-0" />
+                    <span className="truncate flex-1">{resumeFile.name}</span>
+                    <button type="button" onClick={() => { setResumeFile(null); if (fileInputRef.current) fileInputRef.current.value = ""; }} className="text-muted-foreground hover:text-foreground">
+                      <X size={16} />
+                    </button>
+                  </div>
+                ) : (
+                  <Button type="button" variant="outline" className="w-full gap-2" onClick={() => fileInputRef.current?.click()}>
+                    <Upload size={16} /> Upload Resume (PDF, DOC)
+                  </Button>
+                )}
+              </div>
                 {loading ? "Submitting..." : "Submit Application"}
               </Button>
             </form>
