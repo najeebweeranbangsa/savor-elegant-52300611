@@ -73,6 +73,35 @@ serve(async (req) => {
       }
       const [firstName, ...rest] = full_name.split(' ');
       const lastName = rest.join(' ') || '';
+
+      // Upload resume to GHL media storage if URL provided
+      let ghlMediaUrl = resume_url || '';
+      if (resume_url) {
+        try {
+          const mediaForm = new FormData();
+          mediaForm.append('hosted', 'true');
+          mediaForm.append('fileUrl', resume_url);
+          mediaForm.append('name', `resume-${firstName}-${lastName}-${Date.now()}`);
+
+          const mediaRes = await fetch(`${GHL_API_BASE}/medias/upload-file`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${GHL_API_KEY}`,
+              'Version': '2021-07-28',
+            },
+            body: mediaForm,
+          });
+          const mediaText = await mediaRes.text();
+          console.log(`GHL Media upload [${mediaRes.status}]:`, mediaText);
+          if (mediaRes.ok) {
+            const mediaData = JSON.parse(mediaText);
+            ghlMediaUrl = mediaData.url || mediaData.fileUrl || resume_url;
+          }
+        } catch (mediaErr) {
+          console.error('GHL media upload failed, using original URL:', mediaErr);
+        }
+      }
+
       contactPayload = {
         locationId: GHL_LOCATION_ID,
         firstName, lastName,
@@ -82,7 +111,7 @@ serve(async (req) => {
         customFields: [
           { key: 'position', field_value: position },
           { key: 'experience', field_value: experience || '' },
-          { key: 'resume_url', field_value: resume_url || '' },
+          { key: 'resume_url', field_value: ghlMediaUrl },
         ],
       };
     } else {
