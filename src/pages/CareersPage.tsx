@@ -25,6 +25,14 @@ const CareersPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!position) {
+      toast.error("Please select a position.");
+      return;
+    }
+    if (!resumeFile) {
+      toast.error("Please upload your resume.");
+      return;
+    }
     setLoading(true);
     const form = e.target as HTMLFormElement;
     const data = new FormData(form);
