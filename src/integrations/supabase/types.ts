@@ -62,6 +62,7 @@ export type Database = {
           id: string
           phone: string
           position: string
+          resume_url: string | null
           status: string
         }
         Insert: {
@@ -72,6 +73,7 @@ export type Database = {
           id?: string
           phone: string
           position: string
+          resume_url?: string | null
           status?: string
         }
         Update: {
@@ -82,6 +84,7 @@ export type Database = {
           id?: string
           phone?: string
           position?: string
+          resume_url?: string | null
           status?: string
         }
         Relationships: []
