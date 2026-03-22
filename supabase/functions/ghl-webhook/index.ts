@@ -66,7 +66,7 @@ serve(async (req) => {
         ],
       };
     } else if (form_type === 'careers') {
-      const { full_name, phone, email, position, experience } = body;
+      const { full_name, phone, email, position, experience, resume_url } = body;
       if (!full_name || !phone || !email || !position) {
         return new Response(JSON.stringify({ error: 'Missing required fields' }),
           { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
@@ -82,6 +82,7 @@ serve(async (req) => {
         customFields: [
           { key: 'position', field_value: position },
           { key: 'experience', field_value: experience || '' },
+          { key: 'resume_url', field_value: resume_url || '' },
         ],
       };
     } else {

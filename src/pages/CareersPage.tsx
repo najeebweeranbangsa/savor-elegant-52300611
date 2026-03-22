@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/ui/button";
@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Upload, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import careersHero from "@/assets/careers-hero.avif";
 
@@ -20,6 +20,8 @@ const openings = [
 const CareersPage = () => {
   const [loading, setLoading] = useState(false);
   const [position, setPosition] = useState("");
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,12 +34,34 @@ const CareersPage = () => {
     const email = data.get("email") as string;
     const experience = (data.get("experience") as string) || null;
 
+    let resumeUrl: string | null = null;
+
+    if (resumeFile) {
+      const fileExt = resumeFile.name.split(".").pop();
+      const filePath = `${crypto.randomUUID()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage
+        .from("resumes")
+        .upload(filePath, resumeFile);
+
+      if (uploadError) {
+        toast.error("Failed to upload resume. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from("resumes")
+        .getPublicUrl(filePath);
+      resumeUrl = urlData.publicUrl;
+    }
+
     const { error } = await supabase.from("career_applications").insert({
       full_name: fullName,
       email,
       phone,
       position,
       experience,
+      resume_url: resumeUrl,
     });
 
     setLoading(false);
@@ -47,6 +71,7 @@ const CareersPage = () => {
       toast.success("Application submitted! We'll be in touch.");
       form.reset();
       setPosition("");
+      setResumeFile(null);
 
       supabase.functions.invoke("ghl-webhook", {
         body: {
@@ -55,6 +80,7 @@ const CareersPage = () => {
           phone, email,
           position,
           experience: experience || "",
+          resume_url: resumeUrl || "",
         },
       }).catch((err) => console.error("GHL sync error:", err));
     }
