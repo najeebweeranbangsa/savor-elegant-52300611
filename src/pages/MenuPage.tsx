@@ -25,7 +25,7 @@ const MenuPage = () => {
       ]);
       setCategories(c.data || []);
       setItems(i.data || []);
-      if (c.data && c.data.length > 0) setActiveCategory(c.data[0].id);
+      setActiveCategory("all");
       setLoading(false);
     };
     fetch();
