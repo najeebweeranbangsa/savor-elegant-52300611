@@ -88,7 +88,7 @@ const ReservationPage = () => {
               <Input name="phone" type="tel" placeholder="Phone Number" required />
               <Input name="email" type="email" placeholder="Email Address" required />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input name="date" type="date" required />
+                <Input name="date" type="date" required className="[&::-webkit-calendar-picker-indicator]:invert" />
                 <Popover open={timeOpen} onOpenChange={setTimeOpen}>
                   <PopoverTrigger asChild>
                     <button
