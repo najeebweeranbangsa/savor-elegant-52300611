@@ -163,18 +163,21 @@ export type Database = {
       }
       menu_categories: {
         Row: {
+          archived: boolean
           created_at: string
           id: string
           name: string
           sort_order: number
         }
         Insert: {
+          archived?: boolean
           created_at?: string
           id?: string
           name: string
           sort_order?: number
         }
         Update: {
+          archived?: boolean
           created_at?: string
           id?: string
           name?: string
@@ -184,6 +187,7 @@ export type Database = {
       }
       menu_items: {
         Row: {
+          archived: boolean
           category_id: string
           created_at: string
           description: string | null
@@ -195,6 +199,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          archived?: boolean
           category_id: string
           created_at?: string
           description?: string | null
@@ -206,6 +211,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          archived?: boolean
           category_id?: string
           created_at?: string
           description?: string | null

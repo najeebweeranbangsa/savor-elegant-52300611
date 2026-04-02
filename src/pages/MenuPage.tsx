@@ -20,8 +20,8 @@ const MenuPage = () => {
   useEffect(() => {
     const fetch = async () => {
       const [c, i] = await Promise.all([
-        supabase.from("menu_categories").select("*").order("sort_order"),
-        supabase.from("menu_items").select("*").order("sort_order"),
+        (supabase.from("menu_categories").select("*") as any).eq("archived", false).order("sort_order"),
+        (supabase.from("menu_items").select("*") as any).eq("archived", false).order("sort_order"),
       ]);
       setCategories(c.data || []);
       setItems(i.data || []);
