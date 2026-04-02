@@ -28,26 +28,27 @@
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="67f5454f8a468a6fd590c526"></script>
     <script>
-      // Hide chat widget and Elfsight on admin pages
       (function() {
+        var css = '[class*="leadconnector"], iframe[src*="leadconnector"], .elfsight-app, [class*="chat-widget"], #chat-widget, [id*="chat-widget"], [data-widget-id] { display: none !important; visibility: hidden !important; }';
+        var styleEl;
         function toggleWidgets() {
           var isAdmin = window.location.pathname.startsWith('/admin');
-          var style = document.getElementById('hide-widgets-admin');
-          if (isAdmin && !style) {
-            style = document.createElement('style');
-            style.id = 'hide-widgets-admin';
-            style.textContent = '[class*="leadconnector"], iframe[src*="leadconnector"], .elfsight-app, [class*="chat-widget"] { display: none !important; }';
-            document.head.appendChild(style);
-          } else if (!isAdmin && style) {
-            style.remove();
+          if (isAdmin && !styleEl) {
+            styleEl = document.createElement('style');
+            styleEl.id = 'hide-widgets-admin';
+            styleEl.textContent = css;
+            document.head.appendChild(styleEl);
+          } else if (!isAdmin && styleEl) {
+            styleEl.remove();
+            styleEl = null;
           }
         }
         toggleWidgets();
-        var _pushState = history.pushState;
-        var _replaceState = history.replaceState;
-        history.pushState = function() { _pushState.apply(this, arguments); toggleWidgets(); };
-        history.replaceState = function() { _replaceState.apply(this, arguments); toggleWidgets(); };
+        var _ps = history.pushState, _rs = history.replaceState;
+        history.pushState = function() { _ps.apply(this, arguments); toggleWidgets(); };
+        history.replaceState = function() { _rs.apply(this, arguments); toggleWidgets(); };
         window.addEventListener('popstate', toggleWidgets);
+        new MutationObserver(toggleWidgets).observe(document.body, { childList: true, subtree: true });
       })();
     </script>
   </body>
