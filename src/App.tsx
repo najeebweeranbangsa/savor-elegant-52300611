@@ -11,6 +11,7 @@ const MenuPage = lazy(() => import("./pages/MenuPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const EventsPage = lazy(() => import("./pages/EventsPage"));
+const EventDetailPage = lazy(() => import("./pages/EventDetailPage"));
 const CateringPage = lazy(() => import("./pages/CateringPage"));
 const CareersPage = lazy(() => import("./pages/CareersPage"));
 const ReservationPage = lazy(() => import("./pages/ReservationPage"));
@@ -61,6 +62,7 @@ const App = () => (
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/events" element={<EventsPage />} />
+              <Route path="/events/:slug" element={<EventDetailPage />} />
               <Route path="/catering" element={<CateringPage />} />
               <Route path="/careers" element={<CareersPage />} />
               <Route path="/reservation" element={<ReservationPage />} />
