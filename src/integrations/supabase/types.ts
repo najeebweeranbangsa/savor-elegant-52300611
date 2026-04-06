@@ -130,31 +130,40 @@ export type Database = {
       }
       events: {
         Row: {
+          archived: boolean
           created_at: string
           date: string
           description: string | null
           id: string
+          image_url: string | null
           location: string | null
+          slug: string
           time: string | null
           title: string
           updated_at: string
         }
         Insert: {
+          archived?: boolean
           created_at?: string
           date: string
           description?: string | null
           id?: string
+          image_url?: string | null
           location?: string | null
+          slug: string
           time?: string | null
           title: string
           updated_at?: string
         }
         Update: {
+          archived?: boolean
           created_at?: string
           date?: string
           description?: string | null
           id?: string
+          image_url?: string | null
           location?: string | null
+          slug?: string
           time?: string | null
           title?: string
           updated_at?: string
