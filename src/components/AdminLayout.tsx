@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { LayoutDashboard, UtensilsCrossed, FileText, CalendarDays, BookOpen, LogOut, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, UtensilsCrossed, FileText, CalendarDays, BookOpen, Users, LogOut, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.webp";
 
@@ -11,6 +11,7 @@ const links = [
   { label: "Blog", to: "/admin/blog", icon: FileText },
   { label: "Events", to: "/admin/events", icon: CalendarDays },
   { label: "Reservations", to: "/admin/reservations", icon: BookOpen },
+  { label: "Users", to: "/admin/users", icon: Users },
 ];
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
