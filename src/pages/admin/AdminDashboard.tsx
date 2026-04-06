@@ -5,9 +5,10 @@ import { UtensilsCrossed, FileText, CalendarDays, BookOpen } from "lucide-react"
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({ menu: 0, blog: 0, events: 0, reservations: 0 });
+  const [firstName, setFirstName] = useState("");
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchData = async () => {
       const [m, b, e, r] = await Promise.all([
         supabase.from("menu_items").select("id", { count: "exact", head: true }),
         supabase.from("blog_posts").select("id", { count: "exact", head: true }),
@@ -20,8 +21,18 @@ const AdminDashboard = () => {
         events: e.count ?? 0,
         reservations: r.count ?? 0,
       });
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("first_name")
+          .eq("id", user.id)
+          .single();
+        setFirstName(profile?.first_name || user.user_metadata?.first_name || "");
+      }
     };
-    fetchStats();
+    fetchData();
   }, []);
 
   const cards = [
@@ -33,7 +44,12 @@ const AdminDashboard = () => {
 
   return (
     <AdminLayout>
-      <h1 className="font-display text-3xl font-bold mb-6">Dashboard</h1>
+      <div className="mb-6">
+        <h1 className="font-display text-3xl font-bold">
+          {firstName ? `Welcome back, ${firstName}!` : "Dashboard"}
+        </h1>
+        {firstName && <p className="text-muted-foreground text-sm mt-1">Here's your dashboard overview</p>}
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map((c) => {
           const Icon = c.icon;
