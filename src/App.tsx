@@ -19,6 +19,9 @@ const TermsPage = lazy(() => import("./pages/TermsPage"));
 const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLoginPage = lazy(() => import("./pages/AdminLoginPage"));
+const AdminSignupPage = lazy(() => import("./pages/AdminSignupPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminMenuPage = lazy(() => import("./pages/admin/AdminMenuPage"));
 const AdminBlogPage = lazy(() => import("./pages/admin/AdminBlogPage"));
@@ -65,6 +68,9 @@ const App = () => (
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin/signup" element={<AdminSignupPage />} />
+              <Route path="/admin/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
               <Route path="/admin/menu" element={<AdminRoute><AdminMenuPage /></AdminRoute>} />
               <Route path="/admin/blog" element={<AdminRoute><AdminBlogPage /></AdminRoute>} />
