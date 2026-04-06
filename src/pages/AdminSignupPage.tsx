@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +12,7 @@ const AdminSignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,34 +27,17 @@ const AdminSignupPage = () => {
         password,
         options: {
           data: { first_name: firstName, last_name: lastName },
-          emailRedirectTo: window.location.origin,
         },
       });
       if (error) throw error;
-      setSubmitted(true);
+      toast.success("Account created! You are now signed in.");
+      navigate("/admin");
     } catch (err: any) {
       toast.error(err.message || "Sign up failed");
     } finally {
       setLoading(false);
     }
   };
-
-  if (submitted) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center px-4">
-        <div className="w-full max-w-sm space-y-6 text-center">
-          <img src={logo} alt="404 Sports Bar" className="h-14 mx-auto mb-4" />
-          <h1 className="font-display text-2xl font-bold">Check Your Email</h1>
-          <p className="text-muted-foreground text-sm">
-            We've sent a verification link to <strong>{email}</strong>. Please check your inbox and click the link to verify your account.
-          </p>
-          <Link to="/admin/login" className="text-primary hover:underline text-sm">
-            Back to Sign In
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
