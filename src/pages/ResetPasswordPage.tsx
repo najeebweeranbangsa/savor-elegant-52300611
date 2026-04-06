@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import PasswordInput from "@/components/PasswordInput";
 import { toast } from "sonner";
 import logo from "@/assets/logo.webp";
 
@@ -79,8 +79,8 @@ const ResetPasswordPage = () => {
           <p className="text-muted-foreground text-sm mt-1">Enter your new password</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4 bg-card p-6 rounded-lg border border-border">
-          <Input type="password" placeholder="New Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          <Input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+          <PasswordInput placeholder="New Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <PasswordInput placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Updating..." : "Update Password"}
           </Button>
