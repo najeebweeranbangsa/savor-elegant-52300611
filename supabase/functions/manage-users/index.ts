@@ -90,6 +90,24 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ success: true, user: newUser }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
+    if (action === "update_role") {
+      const { userId, role } = body;
+      if (!userId || !role) {
+        return new Response(JSON.stringify({ error: "userId and role required" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      if (!["admin", "user"].includes(role)) {
+        return new Response(JSON.stringify({ error: "Invalid role" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+      // Remove existing roles
+      await adminClient.from("user_roles").delete().eq("user_id", userId);
+      // Insert new role (skip for "user" since that's the default/no-role state)
+      if (role === "admin") {
+        const { error } = await adminClient.from("user_roles").insert({ user_id: userId, role: "admin" });
+        if (error) throw error;
+      }
+      return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
     return new Response(JSON.stringify({ error: "Unknown action" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
   } catch (err: any) {
     return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });

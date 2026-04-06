@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import PasswordInput from "@/components/PasswordInput";
 import { toast } from "sonner";
 import logo from "@/assets/logo.webp";
 
@@ -36,7 +37,7 @@ const AdminLoginPage = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4 bg-card p-6 rounded-lg border border-border">
           <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <PasswordInput placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Signing in..." : "Sign In"}
           </Button>

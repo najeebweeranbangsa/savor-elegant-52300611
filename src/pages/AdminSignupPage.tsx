@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import PasswordInput from "@/components/PasswordInput";
 import { toast } from "sonner";
 import logo from "@/assets/logo.webp";
 
@@ -51,7 +52,7 @@ const AdminSignupPage = () => {
           <Input placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
           <Input placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
           <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <PasswordInput placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Creating account..." : "Sign Up"}
           </Button>
