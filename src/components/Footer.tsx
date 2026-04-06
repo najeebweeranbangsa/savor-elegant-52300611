@@ -72,15 +72,11 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Clock size={16} className="text-primary flex-shrink-0" />
-                <span>Monday: 12PM - 11PM</span>
+                <span>Mon - Wed: 12PM - 9PM</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={16} className="text-primary flex-shrink-0" />
-                <span>Tuesday: CLOSED</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Clock size={16} className="text-primary flex-shrink-0" />
-                <span>Wed - Thu: 12PM - 11PM</span>
+                <span>Thu: 12PM - 11PM</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={16} className="text-primary flex-shrink-0" />
@@ -88,7 +84,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <Clock size={16} className="text-primary flex-shrink-0" />
-                <span>Sunday: 12PM - 11PM</span>
+                <span>Sunday: 12PM - 9PM</span>
               </li>
             </ul>
           </div>
