@@ -56,11 +56,11 @@ const AdminEventsPage = () => {
   };
 
   const save = async () => {
-    const payload = { ...form, image_url: form.image_url || null };
+    const payload: Record<string, unknown> = { ...form, image_url: form.image_url || null };
     if (editing) {
-      await supabase.from("events").update(payload).eq("id", editing.id);
+      await supabase.from("events").update(payload as any).eq("id", editing.id);
     } else {
-      await supabase.from("events").insert(payload);
+      await supabase.from("events").insert(payload as any);
     }
     setDialogOpen(false);
     toast.success("Event saved");
