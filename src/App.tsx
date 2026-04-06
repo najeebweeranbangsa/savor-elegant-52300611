@@ -68,6 +68,9 @@ const App = () => (
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin/signup" element={<AdminSignupPage />} />
+              <Route path="/admin/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/reset-password" element={<ResetPasswordPage />} />
               <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
               <Route path="/admin/menu" element={<AdminRoute><AdminMenuPage /></AdminRoute>} />
               <Route path="/admin/blog" element={<AdminRoute><AdminBlogPage /></AdminRoute>} />
